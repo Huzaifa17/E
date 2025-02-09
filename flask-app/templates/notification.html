@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Notifications - Programming Community{% endblock %}
+
+{% block content %}
+    <h3 class="mb-4">Recent Notifications</h3>
+    <div class="card">
+        <div class="card-body">
+            {% if notifications %}
+                <ul class="list-group">
+                    {% for notification in notifications %}
+                        <li class="list-group-item">
+                            <strong>{{ notification.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</strong>: 
+                            {{ notification.message }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-muted">No new notifications.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
