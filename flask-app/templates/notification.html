@@ -4,14 +4,25 @@
 
 {% block content %}
     <h3 class="mb-4">Recent Notifications</h3>
-    <div class="card">
+    <div class="card shadow">
         <div class="card-body">
             {% if notifications %}
                 <ul class="list-group">
                     {% for notification in notifications %}
-                        <li class="list-group-item">
-                            <strong>{{ notification.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</strong>: 
-                            {{ notification.message }}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="badge 
+                                    {% if notification.type == 'moderator' %}bg-primary
+                                    {% elif notification.type == 'post_approved' %}bg-success
+                                    {% elif notification.type == 'post_deleted' %}bg-danger
+                                    {% else %}bg-secondary{% endif %} me-2">
+                                    {{ notification.type|upper }}
+                                </span>
+                                {{ notification.message }}
+                            </div>
+                            <small class="text-muted">
+                                {{ notification.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+                            </small>
                         </li>
                     {% endfor %}
                 </ul>
